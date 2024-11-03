@@ -68,19 +68,30 @@ class Stack:
 #Queue
 class Queue:
     def __init__(self):
-        self.items = []
+        self.items = []  
 
     def enqueue(self, item):
-        self.items.insert(0, item)
+        """Thêm phần tử vào cuối hàng đợi."""
+        self.items.append(item)
 
     def dequeue(self):
-        if self.is_empty():
-            raise IndexError("Dequeue from an empty queue")
-        return self.items.pop()
+        """Xóa và trả về phần tử ở đầu hàng đợi."""
+        if not self.is_empty():
+            return self.items.pop(0)  
+        raise IndexError("Dequeue from an empty queue")  
 
     def is_empty(self):
+        """Kiểm tra xem hàng đợi có rỗng hay không."""
         return len(self.items) == 0
 
+    def peek(self):
+        """Trả về phần tử ở đầu hàng đợi mà không xóa nó."""
+        if not self.is_empty():
+            return self.items[0]  
+        raise IndexError("Peek from an empty queue")  
+    def print_queue(self):
+        """In ra các phần tử trong hàng đợi."""
+        print("Queue:", self.items)
 #Binary Tree 
 class TreeNode:
     def __init__(self, key):
