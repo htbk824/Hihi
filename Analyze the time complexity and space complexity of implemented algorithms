@@ -1,0 +1,10 @@
+Data Structure / Algorithm	Time Complexity (Best)	Time Complexity (Average)	Time Complexity (Worst)	Space Complexity
+Array (Access)	O(1)	O(1)	O(1)	O(n)
+Linked List (Insertion)	O(1)	O(n)	O(n)	O(n)
+Stack (Push/Pop)	O(1)	O(1)	O(1)	O(n)
+Queue (Enqueue/Dequeue)	O(1)	O(1)	O(1)	O(n)
+Binary Tree (Insertion)	O(log n)	O(n)	O(n)	O(n)
+Binary Search Tree (Search)	O(1)	O(log n)	O(n)	O(n)
+Bubble Sort	O(n)	O(n^2)	O(n^2)	O(1)
+Insertion Sort	O(n)	O(n^2)	O(n^2)	O(1)
+Linear Search	O(1)  O(n)	O(n)	O(1)
