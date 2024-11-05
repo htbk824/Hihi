@@ -180,7 +180,6 @@ def binary_search(arr, target):
     return -1
 
 #Hash table
-'''
 class HashTable:
     def __init__(self, size):
         self.size = size
@@ -234,81 +233,6 @@ def test_hash_table():
     print("All test cases passed!")
 
 test_hash_table()  
-                '''
-class HashTable:
-    def __init__(self, size):
-        self.size = size
-        self.table = [[] for _ in range(size)]
-
-    def hash_function(self, key):
-        # Simple hash function that maps keys to indices within the table's range
-        return hash(key) % self.size
-
-    def insert(self, key, value):
-        index = self.hash_function(key)
-        # Check if the key already exists and update it
-        for kv in self.table[index]:
-            if kv[0] == key:
-                kv = (key, value)
-                return
-        # If key is not found, append the key-value pair to handle collisions by chaining
-        self.table[index].append((key, value))
-
-    def get(self, key):
-        index = self.hash_function(key)
-        for kv in self.table[index]:
-            if kv[0] == key:
-                return kv[1]
-        return None
-
-    def remove(self, key):
-        index = self.hash_function(key)
-        for i, kv in enumerate(self.table[index]):
-            if kv[0] == key:
-                del self.table[index][i]
-                return
-
-    def display(self):
-        # Display the hash table structure for visualization
-        for i, chain in enumerate(self.table):
-            print(f"Index {i}: {chain}")
-
-def test_hash_table():
-    # Create a hash table of size 5 for testing
-    ht = HashTable(5)
-
-    # Test Case 1: Insert and retrieve a key-value pair
-    ht.insert("apple", "fruit")
-    assert ht.get("apple") == "fruit", "Test Case 1 Failed"
-
-    # Test Case 2: Update an existing key's value
-    ht.insert("apple", "red fruit")
-    assert ht.get("apple") == "red fruit", "Test Case 2 Failed"
-
-    # Test Case 3: Retrieve a non-existent key
-    assert ht.get("banana") is None, "Test Case 3 Failed"
-
-    # Test Case 4: Remove an existing key
-    ht.insert("banana", "yellow fruit")
-    ht.remove("banana")
-    assert ht.get("banana") is None, "Test Case 4 Failed"
-
-    # Test Case 5: Handle collision (same index for different keys)
-    # Assuming the hash function may cause collisions at the same index for these keys
-    ht.insert("cat", "animal")
-    ht.insert("tac", "reverse of cat")  # Possible collision if they hash to the same index
-    assert ht.get("cat") == "animal", "Test Case 5 Failed"
-    assert ht.get("tac") == "reverse of cat", "Test Case 6 Failed"
-
-    # Test Case 6: Remove one item in a chain with collisions
-    ht.remove("cat")
-    assert ht.get("cat") is None, "Test Case 7 Failed"
-    assert ht.get("tac") == "reverse of cat", "Test Case 8 Failed"
-
-    print("All test cases passed!")
-
-# Run the tests
-test_hash_table()
 
 
 #5. Performance Comparison of Sorting and Tree Traversal Algorithms
