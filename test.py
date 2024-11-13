@@ -1,33 +1,55 @@
 import pytest
-from sorting_algorithms import quick_sort
+from your_module import SimpleHashTable  # Replace `your_module` with the actual filename where SimpleHashTable is implemented.
 
-class TestQuickSort:
-    def test_sorted_array(self):
-        # Already sorted array
-        assert quick_sort([1, 2, 3, 4, 5]) == [1, 2, 3, 4, 5]
+class TestSimpleHashTable:
+    @pytest.fixture
+    def hash_table(self):
+        # Create a SimpleHashTable instance with size 10
+        return SimpleHashTable(10)
 
-    def test_reverse_sorted_array(self):
-        # Reverse sorted array
-        assert quick_sort([5, 4, 3, 2, 1]) == [1, 2, 3, 4, 5]
+    def test_insert_and_get(self, hash_table):
+        # Insert key-value pairs and test retrieval
+        hash_table.insert("apple", 1)
+        hash_table.insert("banana", 2)
+        hash_table.insert("orange", 3)
+        
+        assert hash_table.get("apple") == 1, "Key 'apple' should return value 1"
+        assert hash_table.get("banana") == 2, "Key 'banana' should return value 2"
+        assert hash_table.get("orange") == 3, "Key 'orange' should return value 3"
 
-    def test_unsorted_array(self):
-        # Unsorted array
-        assert quick_sort([3, 1, 4, 5, 2]) == [1, 2, 3, 4, 5]
+    def test_update_existing_key(self, hash_table):
+        # Insert and then update a key-value pair
+        hash_table.insert("apple", 1)
+        hash_table.insert("apple", 10)  # Update value for 'apple'
+        
+        assert hash_table.get("apple") == 10, "Key 'apple' should return updated value 10"
 
-    def test_array_with_duplicates(self):
-        # Array with duplicate elements
-        assert quick_sort([4, 2, 2, 8, 5, 5]) == [2, 2, 4, 5, 5, 8]
+    def test_get_non_existent_key(self, hash_table):
+        # Retrieve a non-existent key
+        assert hash_table.get("nonexistent") is None, "Non-existent key should return None"
 
-    def test_empty_array(self):
-        # Empty array
-        assert quick_sort([]) == []
+    def test_remove_key(self, hash_table):
+        # Insert and then remove a key
+        hash_table.insert("banana", 2)
+        hash_table.remove("banana")
+        
+        assert hash_table.get("banana") is None, "Key 'banana' should return None after removal"
 
-    def test_single_element_array(self):
-        # Array with a single element
-        assert quick_sort([42]) == [42]
+    def test_collision_handling(self, hash_table):
+        # Test collision handling (keys hashing to the same index)
+        key1 = "abc"  # Assuming both keys hash to the same index
+        key2 = "bca"  # Depending on hash_function and size
+        
+        hash_table.insert(key1, 10)
+        hash_table.insert(key2, 20)
+        
+        assert hash_table.get(key1) == 10, f"Key '{key1}' should return value 10"
+        assert hash_table.get(key2) == 20, f"Key '{key2}' should return value 20"
 
-    def test_large_array(self):
-        # Large array
-        large_array = list(range(1000, 0, -1))  # Array sorted in reverse
-        sorted_array = list(range(1, 1001))    # Correctly sorted array
-        assert quick_sort(large_array) == sorted_array
+    def test_large_number_of_keys(self, hash_table):
+        # Insert many keys and test retrieval
+        for i in range(100):
+            hash_table.insert(f"key{i}", i)
+        for i in range(100):
+            assert hash_table.get(f"key{i}") == i, f"Key 'key{i}' should return value {i}"
+
